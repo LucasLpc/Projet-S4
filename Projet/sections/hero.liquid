@@ -1,0 +1,73 @@
+<div class="sliderJS embla" data-infinite data-selectors="#s-{{section.id}} button">
+    <div class="embla__container">
+            {%- comment -%}
+            permet de creer plusieurs block de contenu dans une meme section
+            {%- endcomment -%}
+            {% for block in section.blocks %}
+            <div class="hero embla__slide">
+                <img src="{{ block.settings.hero_image | img_url: "1920x" }}" alt="Image" loading="lazy">
+                <div class="text__bgnd"></div>
+                <div class="text">
+                    <h1>{{ block.settings.title }}</h1>
+                    <p>{{ block.settings.text }}</p>
+                    <a href="{{block.settings.link}}">{{block.settings.link-desc}}</a>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+</div>
+
+{% schema %} 
+{ 
+    "name": 
+    { 
+        "fr": "Collections", 
+        "en": "Collections"
+    }, 
+    "blocks": 
+    [ 
+        { 
+            "type": "slider",
+            "name": "Hero",
+            "settings": 
+            [ 
+                { 
+                    "type":"image_picker",
+                    "id": "hero_image",
+                    "label": "Image" 
+                },
+                { 
+                    "type": "text",
+                    "id": "title",
+                    "label": "Titre",
+                    "default": "Test"
+                },
+                { 
+                    "type": "textarea",
+                    "id": "text",
+                    "label": "Texte",
+                    "default": "Ceci est un test."
+                },
+                { 
+                    "type": "text",
+                    "id": "link-desc",
+                    "label": "Titre lien",
+                    "default": "En savoir plus"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Lien"
+                }
+            ]
+        }
+    ],
+    "presets":
+    [
+        {
+            "category": "Sliders",
+            "name":"Collections slider"
+        }
+    ]
+}
+{% endschema %}

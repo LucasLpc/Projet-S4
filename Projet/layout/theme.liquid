@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{shop.name | capitalize}}</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="{{ page_description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  {{ content_for_header }} <!-- Header hook for plugins -->
+  {{ 'application.scss.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'sharp.bundle.js' | asset_url}}" defer></script>
+  <script src="{{ 'application.js' | asset_url}}" defer></script>
+  {%- comment -%}
+   cript pour sharpJS, technologie de l'entreprise ou j'effectue mon stage
+  permet de creer des sliders et autres.
+  {%- endcomment -%}
+  <script>
+    const SHARP_ASSETS = {
+        "EMBLA": {
+            "src": "{{ 'sharp.embla.js' | asset_url }}",
+            "waiting": "EmblaCarousel"
+        },
+        "PARTICLES": {
+            "src": "{{ 'particles.min.js' | asset_url }}",
+            "waiting": "particlesJS"
+        }
+    };
+    const SHARP_CONFIGS = {
+        "PARTICLES": "{{ 'particles.json' | asset_url }}"
+    }
+  </script>
+</head>
+<body>
+  {%- comment -%}
+   importation des section header et footer
+  {%- endcomment -%}
+  {% section 'header' %}
+  <main role="main">
+    {%- comment -%}
+    shoppify genere le contenu grace a la page admin ou on choisit l'emplacement des sections
+    {%- endcomment -%}
+    {{ content_for_layout }}
+  </main>
+  {% section 'footer' %}
+</body>
+</html>

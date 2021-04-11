@@ -1,0 +1,21 @@
+<footer>
+    <div class="footer__copyrights">
+        <span>&copy;{{ "now" | date: "%Y" }} - {{ shop.name | capitalize }}, </span>
+    </div>
+</footer>
+
+{% schema %} 
+{ 
+  "name":  "Footer",
+  "class": "footer",
+  "settings":
+  [
+    {
+        "type": "text",
+        "id": "copy",
+        "label": "Copyrights",
+        "default": "All Rights Reserved.",
+    },
+  ]
+}
+{% endschema %}

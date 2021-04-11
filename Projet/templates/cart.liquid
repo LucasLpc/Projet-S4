@@ -1,0 +1,59 @@
+{% if cart.item_count > 0 %}
+  <h1 style="margin: 0 0 10px 10px; padding-top: 30px;">Votre panier</h1>
+  <form class="cart" action="/cart" method="post" novalidate>
+      {% for item in cart.items %}
+      <div class="cart__container">
+        <div class="cart__container__product">
+          <div>
+            <span>Produit</span>
+          </div>
+          <div>
+            <a href="{{ item.url | within: collections.all }}">
+              <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+            </a>
+          </div>
+        </div>
+        <div class="cart__container__details">
+          <div>
+            <span>Détails</span>
+          </div>
+          <div>
+            <a href="{{ item.url }}">{{ item.product.title }}</a>
+            <span> - {{ item.variant.title }}</span>
+          </div>
+        </div>
+        <div class="cart__container__quantity">
+          <div>
+            <span>Quantité</span>
+          </div>
+          <div>
+            <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+            <span>x {{ item.price | money }}</span>
+          </div>
+        </div>
+        <div class="cart__container__price">
+          <div>
+            <span>Prix total</span>
+          </div>
+          <div>
+            {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+            {{ item.line_price | money }}
+            {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><img src="{{ "close.svg" | asset_url }}" alt="close" width="10px" height="10px" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    <div class="cart__sub-container">
+      <span>Total : {{ cart.total_price | money }}</span>
+      <div>
+        <button type="submit" name="update">Mettre à jour</button>
+        <button type="submit" name="checkout">Confirmer</button>
+      </div>
+    </div>
+  </form>
+{% else %}
+  <div class="cart__empty">
+    <h1>Votre panier est vide ...</h1>
+  </div>
+{% endif %}

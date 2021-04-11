@@ -1,0 +1,63 @@
+<div class="sliderJS embla" data-infinite>
+    <div class="embla__container">
+        {% for block in section.blocks %}
+        {% assign product_item = all_products[block.settings.p_sale] %}
+            <div class="embla__slide section__sales"> 
+                <div class="section__sales__img">
+                    <img src="{{product_item | img_url: "520x"}}" alt="Image" width="700" height="500" loading="lazy">
+                </div>
+                <div class="section__sales__text">
+                    <div class="section__sales__text__title">
+                        <h1>{{product_item.title}}</h1>
+                    </div>
+                    <div class="section__sales__text__desc">
+                        {{product_item.description}}
+                    </div>
+                    <div class="section__sales__text__prices">
+                        <div class="section__sales__text__prices__now">
+                            <span>{{product_item.price_min | money_without_currency}}€</span>
+                        </div>
+                        <div  class="section__sales__text__prices__before">
+                            <span><s>{{product_item.compare_at_price | money_without_currency}}€</s></span>
+                        </div>
+                        <div class="section__sales__text__prices__percent">
+                            <span>-{{product_item.compare_at_price | minus: product_item.price_min | times: 100 | divided_by: product_item.compare_at_price | money_without_currency | replace: '0,', ''}}%</span>
+                        </div>
+                    </div>
+                    <div class="section__sales__text__link">
+                        <a href="{{product_item.url}}">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% schema %}
+{
+    "name": 
+    { 
+        "fr": "Collections", 
+        "en": "Collections"
+    },
+    "blocks": [
+        {
+            "type": "slider",
+            "name": "Soldes",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "p_sale",
+                    "label": "Produit en soldes"
+                }
+            ]
+        }
+    ],
+    "presets":
+    [
+        {
+            "category": "Sliders",
+            "name":"Soldes slider"
+        }
+    ]
+}
+{% endschema %}

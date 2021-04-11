@@ -1,0 +1,59 @@
+<div class="sliderJS embla" data-infinite>
+    <div class="embla__container">
+        {% for block in section.blocks %}
+        {% assign product_item = all_products[block.settings.p_new] %}
+            <div class="embla__slide section__new">
+
+                <button id="more" data-product="{{ product_item.id }}">
+                    <img src="{{ "plus.svg" | asset_url }}" alt="plus" width="30px" height="30px" loading="lazy">
+                    <img src="{{ "minus.svg" | asset_url }}" alt="minus" width="30px" height="30px" loading="lazy" hidden>
+                </button>
+                
+                <img src="{{product_item | img_url : "1920x" }}" height="500" width="1000" loading="lazy">
+
+                <div class="section__new__text" id="{{ product_item.id }}">
+                    <div class="section__new__text__title">
+                        <span>{{ product_item.title }}</span>
+                    </div>
+                    <div class="section__new__text__desc">
+                        {{ product_item.description }}
+                    </div>
+                    <div class="section__new__text__link">
+                        <a href="{{ product_item.url }}">En savoir plus</a>
+                    </div>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": 
+    { 
+        "fr": "Collections", 
+        "en": "Collections"
+    },
+    "blocks": [
+        {
+            "type": "slider",
+            "name": "Nouuveaux",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "p_new",
+                    "label": "Produit en soldes"
+                }
+            ]
+        }
+    ],
+    "presets":
+    [
+        {
+            "category": "Sliders",
+            "name":"Nouveaux slider"
+        }
+    ]
+}
+{% endschema %}

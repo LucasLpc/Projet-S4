@@ -1,0 +1,36 @@
+<header>
+  <nav>
+    <div class="nav__container">
+      <a class="nav__container__home" href="/">{{ shop.name | capitalize }}</a>
+      <div class="nav__container__cart-drawer">
+        <a class="nav__container__cart" href="/cart"><img src="{{ "cart.svg" | asset_url }}" alt="cart" width="30px" height="30px" loading="lazy"></a>
+        <button class="nav__container__drawer" id="drawer">
+          <img src="{{ "menu.svg" | asset_url }}" alt="hamburger" width="30px" height="30px" loading="lazy">
+          <img src="{{ "close.svg" | asset_url }}" alt="hamburger" width="30px" height="30px" loading="lazy" hidden>
+        </button>
+      </div>
+      <div class="nav__container__links">
+        {%- for link in linklists[section.settings.nav].links -%} 
+        <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+{% schema %} 
+{ 
+  "name":  "Header",
+  "class": "header",
+  "settings":
+  [
+    {
+      "type": "link_list",
+      "id": "nav",
+      "label": "Links",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
